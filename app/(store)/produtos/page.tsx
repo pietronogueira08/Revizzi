@@ -123,12 +123,12 @@ export default async function ProdutosPage({
         {/* Sidebar */}
         <aside className="w-64 flex-shrink-0 hidden lg:block">
           <FilterSidebar
-            categories={categories.map((c) => ({
+            categories={categories.map((c: any) => ({
               name: c.name,
               slug: c.slug,
               count: c._count.products,
             }))}
-            currentParams={params}
+            currentParams={params as Record<string, string | undefined>}
           />
         </aside>
 
@@ -168,7 +168,7 @@ export default async function ProdutosPage({
           {products.length > 0 ? (
             <>
               <div className="product-grid">
-                {products.map((product) => (
+                {products.map((product: any) => (
                   <ProductCard
                     key={product.id}
                     id={product.id}

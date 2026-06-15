@@ -106,7 +106,7 @@ export default async function PedidoPage({ params, searchParams }: Props) {
 
         {/* Items */}
         <div className="divide-y divide-[#F0F0F0]">
-          {order.items.map((item) => (
+          {order.items.map((item: any) => (
             <div key={item.id} className="flex items-center gap-4 px-6 py-4">
               <div className="flex-1">
                 <p className="font-500 text-sm text-[#0A0A0A]">{item.product.name}</p>

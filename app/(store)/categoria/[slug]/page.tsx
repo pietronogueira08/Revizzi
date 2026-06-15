@@ -62,7 +62,7 @@ export default async function CategoriaPage({ params }: Props) {
 
       {products && products.length > 0 ? (
         <div className="product-grid">
-          {products.map((product) => (
+          {products.map((product: any) => (
             <ProductCard
               key={product.id}
               id={product.id}
