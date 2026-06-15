@@ -1,26 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
+/* ========================
+   DESIGN TOKENS - PREMIUM AUTOMOTIVE
+   ======================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand Accents */
+  --brand-red:     #E60000;
+  --brand-red-dim: #E6000015;
+  --brand-glow:    0 0 20px rgba(230, 0, 0, 0.4);
+
+  /* Neutrals / Monochromes */
+  --color-black:       #050505;
+  --color-white:       #FFFFFF;
+  --color-surface:     #F4F4F5;
+  --color-surface-2:   #E4E4E7;
+  --color-border:      #D4D4D8;
+  --color-border-dark: #27272A;
+
+  /* Text */
+  --color-text-primary:   #09090B;
+  --color-text-secondary: #52525B;
+  --color-text-muted:     #A1A1AA;
+
+  /* Typography */
+  --text-xs:   12px;
+  --text-sm:   14px;
+  --text-base: 16px;
+  --text-lg:   18px;
+  --text-xl:   24px;
+  --text-2xl:  32px;
+  --text-3xl:  48px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Dark mode overrides (optional/future proofing) */
+[data-theme="dark"] {
+  --color-black:          #FFFFFF;
+  --color-white:          #050505;
+  --color-surface:        #121212;
+  --color-surface-2:      #1A1A1A;
+  --color-border:         #27272A;
+  --color-text-primary:   #FAFAFA;
+  --color-text-secondary: #A1A1AA;
+  --color-text-muted:     #71717A;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ========================
+   RESET & BASE
+   ======================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-white);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  font-size: var(--text-base);
+  letter-spacing: -0.01em;
 }
+
+/* ========================
+   PREMIUM UTILITIES
+   ======================== */
+
+/* Subtler gradient for text where needed */
+.brand-text-accent {
+  color: var(--brand-red);
+}
+
+.metallic-text {
+  background: linear-gradient(135deg, #A1A1AA 0%, #FAFAFA 50%, #A1A1AA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-divider {
+  height: 2px;
+  width: 48px;
+  background: var(--brand-red);
+  border-radius: 2px;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ========================
+   BOTÕES PREMIUM
+   ======================== */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: white;
+  background: var(--brand-red);
+  border: 1px solid var(--brand-red);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: #C40000;
+  border-color: #C40000;
+  box-shadow: var(--brand-glow);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-white);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ========================
+   INPUTS
+   ======================== */
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.input:focus {
+  border-color: var(--color-black);
+  background: var(--color-white);
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 8px;
+}
+
+/* ========================
+   CARDS DE PRODUTO
+   ======================== */
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.product-card {
+  border-radius: 0;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.product-card:hover {
+  border-color: var(--color-black);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+  transform: translateY(-4px);
+}
+
+/* ========================
+   LAYOUT SECTIONS
+   ======================== */
+
+.section {
+  padding: 80px 0;
+}
+
+.section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 40px);
+}
+
+.section-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
+}
+
+/* ========================
+   BADGES
+   ======================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-brand {
+  background: var(--brand-red);
+  color: white;
+}
+
+.badge-success {
+  background: #16A34A;
+  color: white;
+}
+
+.badge-neutral {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+
+/* ========================
+   SCROLLBAR
+   ======================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-dark);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-black);
+}
+
+/* ========================
+   PREÇOS
+   ======================== */
+
+.price-current {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.price-compare {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+/* ========================
+   ANIMAÇÕES
+   ======================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+.animate-slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
