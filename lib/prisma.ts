@@ -90,11 +90,11 @@ const mockProducts = [
 
 declare global {
   // eslint-disable-next-line no-var
-  var _mockDb: any;
+  var _mockDbV2: any;
 }
 
-if (!globalThis._mockDb) {
-  globalThis._mockDb = {
+if (!globalThis._mockDbV2) {
+  globalThis._mockDbV2 = {
     products: [...mockProducts],
     categories: [...mockCategories]
   };
@@ -103,7 +103,7 @@ if (!globalThis._mockDb) {
 export const prisma = {
   product: {
     findMany: async (options?: any) => {
-      let result = [...globalThis._mockDb.products];
+      let result = [...globalThis._mockDbV2.products];
       if (options?.where?.isFeatured) {
         result = result.filter(p => p.isFeatured);
       }
@@ -111,10 +111,10 @@ export const prisma = {
     },
     findUnique: async (options: any) => {
       if (options?.where?.slug) {
-        return globalThis._mockDb.products.find((p: any) => p.slug === options.where.slug) || null;
+        return globalThis._mockDbV2.products.find((p: any) => p.slug === options.where.slug) || null;
       }
       if (options?.where?.id) {
-        return globalThis._mockDb.products.find((p: any) => p.id === options.where.id) || null;
+        return globalThis._mockDbV2.products.find((p: any) => p.id === options.where.id) || null;
       }
       return null;
     },
@@ -123,32 +123,32 @@ export const prisma = {
         ...options.data,
         id: 'p' + Math.random().toString(36).substr(2, 9),
         createdAt: new Date(),
-        category: globalThis._mockDb.categories.find((c: any) => c.id === options.data.categoryId)
+        category: globalThis._mockDbV2.categories.find((c: any) => c.id === options.data.categoryId)
       };
-      globalThis._mockDb.products.unshift(newProduct);
+      globalThis._mockDbV2.products.unshift(newProduct);
       return newProduct;
     },
     update: async (options: any) => {
-      const idx = globalThis._mockDb.products.findIndex((p: any) => p.id === options.where.id);
+      const idx = globalThis._mockDbV2.products.findIndex((p: any) => p.id === options.where.id);
       if (idx > -1) {
-        globalThis._mockDb.products[idx] = { ...globalThis._mockDb.products[idx], ...options.data };
-        return globalThis._mockDb.products[idx];
+        globalThis._mockDbV2.products[idx] = { ...globalThis._mockDbV2.products[idx], ...options.data };
+        return globalThis._mockDbV2.products[idx];
       }
       throw new Error("Not found");
     },
     delete: async (options: any) => {
-      const idx = globalThis._mockDb.products.findIndex((p: any) => p.id === options.where.id);
+      const idx = globalThis._mockDbV2.products.findIndex((p: any) => p.id === options.where.id);
       if (idx > -1) {
-        const deleted = globalThis._mockDb.products[idx];
-        globalThis._mockDb.products.splice(idx, 1);
+        const deleted = globalThis._mockDbV2.products[idx];
+        globalThis._mockDbV2.products.splice(idx, 1);
         return deleted;
       }
       throw new Error("Not found");
     },
-    count: async () => globalThis._mockDb.products.length,
+    count: async () => globalThis._mockDbV2.products.length,
   },
   category: {
-    findMany: async () => globalThis._mockDb.categories,
+    findMany: async () => globalThis._mockDbV2.categories,
   },
   user: {
     findUnique: async () => null,
