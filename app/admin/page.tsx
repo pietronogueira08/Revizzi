@@ -52,10 +52,10 @@ async function getDashboardData() {
       }),
     ]);
 
-    const monthRevenue = monthOrders.reduce((s, o) => s + Number(o.total), 0);
+    const monthRevenue = monthOrders.reduce((s: number, o: any) => s + Number(o.total), 0);
     const avgTicket =
       allPaid.length > 0
-        ? allPaid.reduce((s, o) => s + Number(o.total), 0) / allPaid.length
+        ? allPaid.reduce((s: number, o: any) => s + Number(o.total), 0) / allPaid.length
         : 0;
 
     // Revenue by day (last 30 days)
@@ -65,7 +65,7 @@ async function getDashboardData() {
       const key = d.toISOString().slice(0, 10);
       revenueByDay[key] = 0;
     }
-    recentOrders.forEach((o) => {
+    recentOrders.forEach((o: any) => {
       if (o.status === 'PAID') {
         const key = o.createdAt.toISOString().slice(0, 10);
         if (key in revenueByDay) revenueByDay[key] += Number(o.total);
@@ -81,7 +81,7 @@ async function getDashboardData() {
 
     // Orders by status
     const statusCounts: Record<string, number> = {};
-    recentOrders.forEach((o) => {
+    recentOrders.forEach((o: any) => {
       statusCounts[o.status] = (statusCounts[o.status] || 0) + 1;
     });
 
@@ -164,7 +164,7 @@ export default async function AdminDashboard() {
 
       {/* Metric cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {metrics.map((m) => (
+        {metrics.map((m: any) => (
           <div
             key={m.label}
             className="bg-white rounded-xl p-5 border border-[#E4E4E4] hover:shadow-md transition-shadow"
@@ -237,7 +237,7 @@ export default async function AdminDashboard() {
             </h3>
           </div>
           <div className="flex flex-wrap gap-2">
-            {lowStockProducts.map((p) => (
+            {lowStockProducts.map((p: any) => (
               <Link
                 key={p.id}
                 href={`/admin/produtos/${p.id}/editar`}
@@ -283,7 +283,7 @@ export default async function AdminDashboard() {
                   </td>
                 </tr>
               ) : (
-                lastOrders.map((order) => {
+                lastOrders.map((order: any) => {
                   const statusInfo = orderStatusLabels[order.status] || {
                     label: order.status,
                     color: '#9C9C9C',

@@ -35,7 +35,7 @@ export default function AdminRevenueChart({ data }: Props) {
           }
         />
         <Tooltip
-          formatter={(value: number) => [formatPrice(value), 'Receita']}
+          formatter={(value: any) => [formatPrice(Number(value)), 'Receita']}
           contentStyle={{
             borderRadius: '8px',
             border: '1px solid #E4E4E4',

@@ -34,8 +34,8 @@ export default function ProductForm({ categories, defaultValues, mode = 'create'
     watch,
     setValue,
     formState: { errors },
-  } = useForm<ProductInput>({
-    resolver: zodResolver(productSchema),
+  } = useForm<any>({
+    resolver: zodResolver(productSchema) as any,
     defaultValues: {
       ...defaultValues,
       isActive: defaultValues?.isActive ?? true,
@@ -84,7 +84,7 @@ export default function ProductForm({ categories, defaultValues, mode = 'create'
     setValue('images', updated);
   };
 
-  const onSubmit = async (data: ProductInput) => {
+  const onSubmit = async (data: any) => {
     setSaving(true);
     setError('');
     try {

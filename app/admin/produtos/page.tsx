@@ -73,7 +73,7 @@ export default async function AdminProductsPage({
             className="input w-auto h-9 text-sm px-3"
           >
             <option value="">Todas as categorias</option>
-            {categories.map((c) => (
+            {categories.map((c: any) => (
               <option key={c.id} value={c.slug}>
                 {c.name}
               </option>
@@ -109,7 +109,7 @@ export default async function AdminProductsPage({
                   </td>
                 </tr>
               ) : (
-                products.map((p) => (
+                products.map((p: any) => (
                   <tr key={p.id}>
                     <td>
                       <div className="flex items-center gap-3">

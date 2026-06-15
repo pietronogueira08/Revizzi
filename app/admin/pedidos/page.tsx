@@ -147,13 +147,13 @@ export default async function AdminOrdersPage({
                   </td>
                 </tr>
               ) : (
-                orders.map((order) => {
+                orders.map((order: any) => {
                   const statusInfo = orderStatusLabels[order.status] || {
                     label: order.status,
                     color: '#9C9C9C',
                   };
                   const totalItems = order.items.reduce(
-                    (s, i) => s + i.quantity,
+                    (s: number, i: any) => s + i.quantity,
                     0,
                   );
                   return (
