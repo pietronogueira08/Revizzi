@@ -10,9 +10,10 @@ import {
 const footerLinks = {
   loja: [
     { href: '/produtos', label: 'Todos os Produtos' },
-    { href: '/categoria/pecas', label: 'Peças Automotivas' },
-    { href: '/categoria/estetica', label: 'Estética Automotiva' },
-    { href: '/categoria/acessorios', label: 'Acessórios' },
+    { href: '/categoria/polimento', label: 'Polimento' },
+    { href: '/categoria/lavagem', label: 'Lavagem' },
+    { href: '/categoria/protecao', label: 'Proteção & Vitrificação' },
+    { href: '/categoria/detalhamento', label: 'Detalhamento' },
     { href: '/categoria/ferramentas', label: 'Ferramentas' },
   ],
   conta: [
@@ -74,8 +75,8 @@ export default function Footer() {
                 </div>
               </div>
               <p className="text-[#6B6B6B] text-sm leading-relaxed mb-5 max-w-xs">
-                Sua loja especializada em autopeças e produtos de estética automotiva.
-                Qualidade e confiança para o seu veículo.
+              Sua loja especializada em estética automotiva premium.
+                Polimentos, vitrificações e detalhamento para seu veículo.
               </p>
 
               {/* Address */}

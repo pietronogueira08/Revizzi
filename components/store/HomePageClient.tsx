@@ -5,7 +5,7 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { Car, Wrench, Shield, Zap, Package, Truck, Star, BadgeCheck, Timer, Settings, ArrowRight, ChevronRight, ShieldCheck } from 'lucide-react';
+import { Sparkles, Droplets, Shield, Package, Truck, Star, BadgeCheck, Timer, Settings, ArrowRight, ChevronRight, ShieldCheck, Brush, Sun, Wind } from 'lucide-react';
 import HeroBanner from '@/components/store/HeroBanner';
 import ProductCard from '@/components/store/ProductCard';
 
@@ -15,18 +15,18 @@ if (typeof window !== 'undefined') {
 }
 
 const categories = [
-  { name: 'Peças', slug: 'pecas', icon: Wrench },
-  { name: 'Estética', slug: 'estetica', icon: Star },
+  { name: 'Polimento', slug: 'polimento', icon: Sparkles },
+  { name: 'Lavagem', slug: 'lavagem', icon: Droplets },
+  { name: 'Proteção', slug: 'protecao', icon: Shield },
+  { name: 'Vitrificação', slug: 'vitrificacao', icon: Sun },
+  { name: 'Detalhamento', slug: 'detalhamento', icon: Brush },
   { name: 'Acessórios', slug: 'acessorios', icon: Package },
   { name: 'Ferramentas', slug: 'ferramentas', icon: Settings },
-  { name: 'Pneus', slug: 'pneus', icon: Car },
-  { name: 'Segurança', slug: 'seguranca', icon: Shield },
-  { name: 'Performance', slug: 'performance', icon: Zap },
-  { name: 'Entrega', slug: 'envios', icon: Truck },
+  { name: 'Ar & Cabine', slug: 'ar-cabine', icon: Wind },
 ];
 
 const brands = [
-  'Bosch', 'Monroe', 'NGK', 'Mahle', 'Cofap', 'Gates', '3M', 'Meguiar\'s', 'Vonixx'
+  'Meguiar\'s', 'Vonixx', '3M', 'Sonax', 'Autoglym', 'Koch-Chemie', 'Turtle Wax', 'Wurth', 'Finishkare'
 ];
 
 interface HomePageClientProps {
@@ -145,7 +145,7 @@ export default function HomePageClient({ featuredProducts, bestSellers }: HomePa
             <div>
               <div className="gradient-divider mb-4" />
               <h2 className="section-title">Em Destaque</h2>
-              <p className="text-[#52525B] mt-2">Seleção premium para o seu veículo</p>
+              <p className="text-[#52525B] mt-2">Produtos premium de estética automotiva</p>
             </div>
             <Link href="/produtos?featured=true" className="flex items-center gap-2 text-sm text-[#09090B] font-600 hover:text-[#E60000] transition-colors uppercase tracking-wider">
               Ver Todos <ChevronRight size={16} />

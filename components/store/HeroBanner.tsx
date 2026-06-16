@@ -68,14 +68,14 @@ export default function HeroBanner() {
             className="hero-anim text-white font-700 mb-6 tracking-tight leading-[1.1]"
             style={{ fontSize: 'clamp(40px, 6vw, 64px)' }}
           >
-            Performance e<br />
-            estética em<br />
-            <span className="text-[#A1A1AA]">alto nível.</span>
+            Estética<br />
+            automotiva<br />
+            <span className="text-[#A1A1AA]">de alto nível.</span>
           </h1>
 
           {/* Subtitle */}
           <p className="hero-anim text-[#D4D4D8] mb-10 text-lg leading-relaxed max-w-lg">
-            Peças selecionadas, acessórios de alta performance e produtos de estética premium para entusiastas automotivos.
+            Polimentos, proteções, vitrificações e produtos premium de detalhamento para deixar seu carro impecável.
           </p>
 
           {/* CTAs */}
@@ -84,8 +84,8 @@ export default function HeroBanner() {
               Explorar Catálogo
               <ArrowRight size={18} strokeWidth={2} />
             </Link>
-            <Link href="/categoria/estetica" className="btn-secondary">
-              Linha Estética
+            <Link href="/categoria/polimento" className="btn-secondary">
+              Ver Polimentos
             </Link>
           </div>
 
