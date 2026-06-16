@@ -9,8 +9,9 @@ import CartDrawer from './CartDrawer';
 
 const navLinks = [
   { href: '/produtos', label: 'Produtos' },
-  { href: '/categoria/pecas', label: 'Peças' },
-  { href: '/categoria/estetica', label: 'Estética' },
+  { href: '/categoria/polimento', label: 'Polimento' },
+  { href: '/categoria/lavagem', label: 'Lavagem' },
+  { href: '/categoria/protecao', label: 'Proteção' },
   { href: '/categoria/acessorios', label: 'Acessórios' },
   { href: '/sobre', label: 'A Revizzi' },
   { href: '/contato', label: 'Contato' },
@@ -128,7 +129,7 @@ export default function Header() {
                 <input
                   autoFocus
                   type="search"
-                  placeholder="Buscar peças, acessórios, marcas..."
+                  placeholder="Buscar produtos, vitrificadores, marcas..."
                   className="w-full bg-[#F4F4F5] border-none text-base pl-12 pr-4 py-4 focus:ring-2 focus:ring-[#09090B] outline-none transition-all"
                 />
               </div>
