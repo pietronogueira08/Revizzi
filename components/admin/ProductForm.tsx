@@ -165,7 +165,7 @@ export default function ProductForm({ categories, defaultValues, mode = 'create'
           </label>
         </div>
         {errors.images && (
-          <p className="text-xs text-[#DC2626]">{errors.images.message}</p>
+          <p className="text-xs text-[#DC2626]">{String(errors.images.message)}</p>
         )}
         <p className="text-xs text-[#9C9C9C]">
           Formatos: JPG, PNG, WebP. Máximo 10MB por imagem. A primeira imagem é a principal.
@@ -184,13 +184,13 @@ export default function ProductForm({ categories, defaultValues, mode = 'create'
               className="input"
               placeholder="Ex: Óleo Motor Bosch 5W30 1L"
             />
-            {errors.name && <p className="text-xs text-[#DC2626] mt-1">{errors.name.message}</p>}
+            {errors.name && <p className="text-xs text-[#DC2626] mt-1">{String(errors.name.message)}</p>}
           </div>
 
           <div>
             <label className="label">Slug (URL) *</label>
             <input {...register('slug')} className="input font-mono text-sm" placeholder="oleo-motor-bosch-5w30" />
-            {errors.slug && <p className="text-xs text-[#DC2626] mt-1">{errors.slug.message}</p>}
+            {errors.slug && <p className="text-xs text-[#DC2626] mt-1">{String(errors.slug.message)}</p>}
           </div>
 
           <div>
@@ -201,7 +201,7 @@ export default function ProductForm({ categories, defaultValues, mode = 'create'
               className="input resize-none"
               placeholder="Descreva o produto detalhadamente..."
             />
-            {errors.description && <p className="text-xs text-[#DC2626] mt-1">{errors.description.message}</p>}
+            {errors.description && <p className="text-xs text-[#DC2626] mt-1">{String(errors.description.message)}</p>}
           </div>
 
           <div>
@@ -212,7 +212,7 @@ export default function ProductForm({ categories, defaultValues, mode = 'create'
                 <option key={c.id} value={c.id}>{c.name}</option>
               ))}
             </select>
-            {errors.categoryId && <p className="text-xs text-[#DC2626] mt-1">{errors.categoryId.message}</p>}
+            {errors.categoryId && <p className="text-xs text-[#DC2626] mt-1">{String(errors.categoryId.message)}</p>}
           </div>
         </div>
       </div>
@@ -229,7 +229,7 @@ export default function ProductForm({ categories, defaultValues, mode = 'create'
               className="input"
               placeholder="99.90"
             />
-            {errors.price && <p className="text-xs text-[#DC2626] mt-1">{errors.price.message}</p>}
+            {errors.price && <p className="text-xs text-[#DC2626] mt-1">{String(errors.price.message)}</p>}
           </div>
           <div>
             <label className="label">Preço Comparativo (R$)</label>
@@ -248,7 +248,7 @@ export default function ProductForm({ categories, defaultValues, mode = 'create'
               className="input"
               placeholder="0"
             />
-            {errors.stock && <p className="text-xs text-[#DC2626] mt-1">{errors.stock.message}</p>}
+            {errors.stock && <p className="text-xs text-[#DC2626] mt-1">{String(errors.stock.message)}</p>}
           </div>
           <div>
             <label className="label">SKU</label>

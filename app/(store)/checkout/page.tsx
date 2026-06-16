@@ -166,28 +166,28 @@ export default function CheckoutPage() {
                   <label className="label">Nome completo *</label>
                   <input {...personalForm.register('name')} className="input" placeholder="João Silva" />
                   {personalForm.formState.errors.name && (
-                    <p className="text-xs text-[#DC2626] mt-1">{personalForm.formState.errors.name.message}</p>
+                    <p className="text-xs text-[#DC2626] mt-1">{String(personalForm.formState.errors.name.message)}</p>
                   )}
                 </div>
                 <div>
                   <label className="label">CPF *</label>
                   <input {...personalForm.register('cpf')} className="input" placeholder="000.000.000-00" />
                   {personalForm.formState.errors.cpf && (
-                    <p className="text-xs text-[#DC2626] mt-1">{personalForm.formState.errors.cpf.message}</p>
+                    <p className="text-xs text-[#DC2626] mt-1">{String(personalForm.formState.errors.cpf.message)}</p>
                   )}
                 </div>
                 <div>
                   <label className="label">Email *</label>
                   <input {...personalForm.register('email')} type="email" className="input" placeholder="joao@email.com" />
                   {personalForm.formState.errors.email && (
-                    <p className="text-xs text-[#DC2626] mt-1">{personalForm.formState.errors.email.message}</p>
+                    <p className="text-xs text-[#DC2626] mt-1">{String(personalForm.formState.errors.email.message)}</p>
                   )}
                 </div>
                 <div>
                   <label className="label">Telefone / WhatsApp *</label>
                   <input {...personalForm.register('phone')} className="input" placeholder="(22) 99999-9999" />
                   {personalForm.formState.errors.phone && (
-                    <p className="text-xs text-[#DC2626] mt-1">{personalForm.formState.errors.phone.message}</p>
+                    <p className="text-xs text-[#DC2626] mt-1">{String(personalForm.formState.errors.phone.message)}</p>
                   )}
                 </div>
               </div>
@@ -229,7 +229,7 @@ export default function CheckoutPage() {
                     }}
                   />
                   {addressForm.formState.errors.zipCode && (
-                    <p className="text-xs text-[#DC2626] mt-1">{addressForm.formState.errors.zipCode.message}</p>
+                    <p className="text-xs text-[#DC2626] mt-1">{String(addressForm.formState.errors.zipCode.message)}</p>
                   )}
                 </div>
               </div>

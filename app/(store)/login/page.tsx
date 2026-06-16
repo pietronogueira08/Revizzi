@@ -85,7 +85,7 @@ export default function LoginPage() {
                 autoComplete="email"
               />
               {errors.email && (
-                <p className="text-xs text-[#DC2626] mt-1">{errors.email.message}</p>
+                <p className="text-xs text-[#DC2626] mt-1">{String(errors.email.message)}</p>
               )}
             </div>
 
@@ -108,7 +108,7 @@ export default function LoginPage() {
                 </button>
               </div>
               {errors.password && (
-                <p className="text-xs text-[#DC2626] mt-1">{errors.password.message}</p>
+                <p className="text-xs text-[#DC2626] mt-1">{String(errors.password.message)}</p>
               )}
             </div>
 
