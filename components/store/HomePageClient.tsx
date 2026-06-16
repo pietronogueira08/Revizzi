@@ -1,18 +1,10 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
-import { Sparkles, Droplets, Shield, Package, Truck, Star, BadgeCheck, Timer, Settings, ArrowRight, ChevronRight, ShieldCheck, Brush, Sun, Wind } from 'lucide-react';
+import { Sparkles, Droplets, Shield, Package, Truck, BadgeCheck, Timer, Settings, ChevronRight, ShieldCheck, Brush, Sun, Wind } from 'lucide-react';
 import HeroBanner from '@/components/store/HeroBanner';
 import ProductCard from '@/components/store/ProductCard';
-
-// Register ScrollTrigger
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const categories = [
   { name: 'Polimento', slug: 'polimento', icon: Sparkles },
@@ -35,101 +27,48 @@ interface HomePageClientProps {
 }
 
 export default function HomePageClient({ featuredProducts, bestSellers }: HomePageClientProps) {
-  const container = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    // Animate standard sections fading up
-    const sections = gsap.utils.toArray('.animate-section');
-    sections.forEach((sec: any) => {
-      gsap.fromTo(sec, 
-        { opacity: 0, y: 40 },
-        {
-          scrollTrigger: {
-            trigger: sec,
-            start: 'top 85%',
-            toggleActions: 'play none none none', // Play once
-          },
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power3.out',
+  useEffect(() => {
+    // Scroll Reveal Global Setup
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
         }
-      );
-    });
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    // Staggered animation for categories
-    gsap.fromTo('.category-card',
-      { opacity: 0, y: 30 },
-      {
-        scrollTrigger: {
-          trigger: '.categories-grid',
-          start: 'top 85%',
-        },
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.05,
-        ease: 'power2.out',
-      }
-    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Staggered animation for trust badges
-    gsap.fromTo('.trust-badge',
-      { opacity: 0, scale: 0.9 },
-      {
-        scrollTrigger: {
-          trigger: '.trust-badges-grid',
-          start: 'top 85%',
-        },
-        opacity: 1,
-        scale: 1,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'back.out(1.5)',
-      }
-    );
-
-    // Parallax effect on the premium banner
-    gsap.to('.premium-banner-bg', {
-      scrollTrigger: {
-        trigger: '.premium-banner',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
-      },
-      y: 100,
-      ease: 'none',
-    });
-
-  }, { scope: container });
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div ref={container}>
+    <div>
       <HeroBanner />
 
       {/* Categories */}
-      <section className="section bg-white border-b border-[#E4E4E7] animate-section">
-        <div className="section-inner">
-          <div className="flex items-center justify-between mb-10">
+      <section className="reveal">
+        <div className="container">
+          <div className="section-header">
             <div>
-              <div className="gradient-divider mb-4" />
               <h2 className="section-title">Categorias</h2>
+              <p className="section-subtitle">Escolha por tipo de serviço</p>
             </div>
-            <Link href="/produtos" className="flex items-center gap-2 text-sm text-[#09090B] font-600 hover:text-[#E60000] transition-colors uppercase tracking-wider">
-              Ver Catálogo <ChevronRight size={16} />
+            <Link href="/produtos" className="section-link">
+              Ver Catálogo <ChevronRight size={14} />
             </Link>
           </div>
-          <div className="categories-grid grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-4">
+          <div className="categories-grid reveal reveal-stagger">
             {categories.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/categoria/${cat.slug}`}
-                className="category-card group flex flex-col items-center gap-4 p-6 border border-[#E4E4E7] bg-white hover:border-[#09090B] transition-all"
+                className="category-card"
               >
-                <div className="w-14 h-14 rounded-none bg-[#F4F4F5] flex items-center justify-center transition-transform group-hover:bg-[#09090B] group-hover:text-white text-[#52525B]">
-                  <cat.icon size={24} strokeWidth={1.5} />
-                </div>
-                <span className="text-xs font-600 text-[#09090B] uppercase tracking-wider transition-colors">
+                <cat.icon className="category-card__icon" strokeWidth={1.5} />
+                <span className="category-card__name">
                   {cat.name}
                 </span>
               </Link>
@@ -139,21 +78,20 @@ export default function HomePageClient({ featuredProducts, bestSellers }: HomePa
       </section>
 
       {/* Featured Products */}
-      <section className="section bg-[#F4F4F5] animate-section">
-        <div className="section-inner">
-          <div className="flex items-center justify-between mb-10">
+      <section className="reveal">
+        <div className="container">
+          <div className="section-header">
             <div>
-              <div className="gradient-divider mb-4" />
               <h2 className="section-title">Em Destaque</h2>
-              <p className="text-[#52525B] mt-2">Produtos premium de estética automotiva</p>
+              <p className="section-subtitle">Produtos premium de estética automotiva</p>
             </div>
-            <Link href="/produtos?featured=true" className="flex items-center gap-2 text-sm text-[#09090B] font-600 hover:text-[#E60000] transition-colors uppercase tracking-wider">
-              Ver Todos <ChevronRight size={16} />
+            <Link href="/produtos?featured=true" className="section-link">
+              Ver Todos <ChevronRight size={14} />
             </Link>
           </div>
 
           {featuredProducts.length > 0 ? (
-            <div className="product-grid">
+            <div className="products-grid reveal reveal-stagger">
               {featuredProducts.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -175,31 +113,33 @@ export default function HomePageClient({ featuredProducts, bestSellers }: HomePa
         </div>
       </section>
 
-      {/* Premium Banner */}
-      <section className="premium-banner relative overflow-hidden bg-[#050505]">
-        <div 
-          className="premium-banner-bg absolute inset-0 opacity-20 -top-[100px] h-[calc(100%+200px)]" 
-          style={{ backgroundImage: 'radial-gradient(#E60000 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
-        />
-        <div className="section-inner relative z-10 py-20 flex flex-col md:flex-row items-center justify-between gap-12">
-          <div className="text-center md:text-left max-w-lg">
-            <h2 className="text-3xl font-700 text-white mb-4 tracking-tight">
-              Frete Grátis em Pedidos Acima de <span className="text-[#E60000]">R$ 199,00</span>
-            </h2>
-            <p className="text-[#A1A1AA] text-lg">Enviamos para todo o Brasil com máxima agilidade e segurança garantida.</p>
-          </div>
-          <div className="flex items-center gap-4 flex-wrap justify-center">
-            <div className="text-center px-8 py-6 border border-[#27272A] bg-[#050505] shadow-2xl">
-              <p className="text-white text-3xl font-700 mb-1">24h</p>
-              <p className="text-[#A1A1AA] text-xs uppercase tracking-widest">Despacho</p>
+      {/* Premium Banner (Shipping) */}
+      <section className="shipping-banner reveal">
+        <div className="container">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+            <div className="text-center md:text-left max-w-lg">
+              <h2 className="font-['Bebas_Neue'] text-[clamp(2.5rem,4vw,3.5rem)] leading-none text-[var(--text-primary)] mb-4 uppercase tracking-wide">
+                Frete Grátis acima de <span className="text-[var(--text-secondary)]">R$ 199</span>
+              </h2>
+              <p className="text-[var(--text-muted)] text-sm font-400">
+                Enviamos para todo o Brasil com máxima agilidade e segurança garantida.
+              </p>
             </div>
-            <div className="text-center px-8 py-6 border border-[#27272A] bg-[#050505] shadow-2xl">
-              <p className="text-white text-3xl font-700 mb-1">12x</p>
-              <p className="text-[#A1A1AA] text-xs uppercase tracking-widest">Sem Juros*</p>
-            </div>
-            <div className="text-center px-8 py-6 border border-[#27272A] bg-[#050505] shadow-2xl">
-              <p className="text-white text-3xl font-700 mb-1">PIX</p>
-              <p className="text-[#A1A1AA] text-xs uppercase tracking-widest">Aprovação</p>
+            <div className="flex items-stretch justify-center gap-8 md:gap-12">
+              <div className="shipping-stat">
+                <div className="shipping-stat__value">24h</div>
+                <div className="shipping-stat__label">Despacho</div>
+              </div>
+              <div className="shipping-divider" />
+              <div className="shipping-stat">
+                <div className="shipping-stat__value">12x</div>
+                <div className="shipping-stat__label">Sem Juros*</div>
+              </div>
+              <div className="shipping-divider" />
+              <div className="shipping-stat">
+                <div className="shipping-stat__value">PIX</div>
+                <div className="shipping-stat__label">Aprovação</div>
+              </div>
             </div>
           </div>
         </div>
@@ -207,18 +147,18 @@ export default function HomePageClient({ featuredProducts, bestSellers }: HomePa
 
       {/* Best Sellers */}
       {bestSellers.length > 0 && (
-        <section className="section bg-white border-b border-[#E4E4E7] animate-section">
-          <div className="section-inner">
-            <div className="flex items-center justify-between mb-10">
+        <section className="reveal">
+          <div className="container">
+            <div className="section-header">
               <div>
-                <div className="gradient-divider mb-4" />
                 <h2 className="section-title">Mais Vendidos</h2>
+                <p className="section-subtitle">Os preferidos dos profissionais</p>
               </div>
-              <Link href="/produtos?sort=popular" className="flex items-center gap-2 text-sm text-[#09090B] font-600 hover:text-[#E60000] transition-colors uppercase tracking-wider">
-                Explorar <ChevronRight size={16} />
+              <Link href="/produtos?sort=popular" className="section-link">
+                Explorar <ChevronRight size={14} />
               </Link>
             </div>
-            <div className="product-grid">
+            <div className="products-grid reveal reveal-stagger">
               {bestSellers.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -238,13 +178,14 @@ export default function HomePageClient({ featuredProducts, bestSellers }: HomePa
       )}
 
       {/* Trust badges */}
-      <section className="section bg-[#F4F4F5] animate-section">
-        <div className="section-inner">
-          <div className="text-center mb-16">
-            <div className="gradient-divider mb-4 mx-auto" />
-            <h2 className="section-title">A Diferença Revizzi</h2>
+      <section className="reveal">
+        <div className="container">
+          <div className="section-header justify-center text-center">
+            <div>
+              <h2 className="section-title justify-center after:hidden">A Diferença Revizzi</h2>
+            </div>
           </div>
-          <div className="trust-badges-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 reveal reveal-stagger">
             {[
               {
                 icon: ShieldCheck,
@@ -259,21 +200,21 @@ export default function HomePageClient({ featuredProducts, bestSellers }: HomePa
               {
                 icon: BadgeCheck,
                 title: 'Compra Segura',
-                desc: 'Pagamento processado com criptografia militar.',
+                desc: 'Pagamento processado com criptografia.',
               },
               {
                 icon: Timer,
-                title: 'Atendimento Especializado',
-                desc: 'Suporte técnico via WhatsApp em até 2h.',
+                title: 'Atendimento',
+                desc: 'Suporte especializado via WhatsApp.',
               },
             ].map((item) => (
               <div
                 key={item.title}
-                className="trust-badge bg-white p-8 border border-[#E4E4E7] hover:border-[#09090B] transition-colors"
+                className="bg-[var(--bg-surface)] p-8 border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-colors text-center"
               >
-                <item.icon size={32} strokeWidth={1.5} className="text-[#09090B] mb-6" />
-                <h3 className="font-600 text-[#09090B] mb-3 text-lg">{item.title}</h3>
-                <p className="text-sm text-[#52525B] leading-relaxed">{item.desc}</p>
+                <item.icon size={28} strokeWidth={1.5} className="text-[var(--text-muted)] mb-5 mx-auto" />
+                <h3 className="font-600 text-[var(--text-primary)] mb-2 text-sm uppercase tracking-wide">{item.title}</h3>
+                <p className="text-xs text-[var(--text-muted)] leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -281,14 +222,14 @@ export default function HomePageClient({ featuredProducts, bestSellers }: HomePa
       </section>
 
       {/* Brands */}
-      <section className="py-12 bg-white animate-section">
-        <div className="section-inner">
-          <p className="text-center text-xs font-600 uppercase tracking-widest text-[#A1A1AA] mb-8">
+      <section className="pb-24 pt-12 reveal">
+        <div className="container">
+          <p className="text-center text-[10px] font-600 uppercase tracking-widest text-[var(--text-muted)] mb-8">
             Marcas Parceiras
           </p>
           <div className="flex flex-wrap items-center justify-center gap-10">
             {brands.map((brand) => (
-              <div key={brand} className="text-xl font-700 text-[#E4E4E7] hover:text-[#09090B] transition-colors cursor-pointer">
+              <div key={brand} className="text-xl font-700 text-[var(--border-active)] hover:text-[var(--text-primary)] transition-colors cursor-pointer">
                 {brand}
               </div>
             ))}
@@ -301,10 +242,10 @@ export default function HomePageClient({ featuredProducts, bestSellers }: HomePa
 
 function EmptyProductsState() {
   return (
-    <div className="text-center py-20 bg-white border border-dashed border-[#D4D4D8]">
-      <Package size={48} strokeWidth={1} className="mx-auto text-[#D4D4D8] mb-6" />
-      <h3 className="font-600 text-[#09090B] text-xl mb-2">Catálogo Vazio</h3>
-      <p className="text-[#52525B] mb-8 max-w-sm mx-auto">
+    <div className="text-center py-20 border border-[var(--border-default)]">
+      <Package size={48} strokeWidth={1} className="mx-auto text-[var(--text-muted)] mb-6" />
+      <h3 className="font-600 text-[var(--text-primary)] text-xl mb-2">Catálogo Vazio</h3>
+      <p className="text-[var(--text-muted)] mb-8 max-w-sm mx-auto text-sm">
         Configure o banco de dados e adicione produtos para visualizá-los aqui.
       </p>
       <Link href="/admin/produtos/novo" className="btn-primary">

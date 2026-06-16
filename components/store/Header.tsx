@@ -18,7 +18,7 @@ const navLinks = [
   { href: '/contato', label: 'Contato' },
 ];
 
-const WHATSAPP_NUMBER = '5522999999999'; // formato internacional sem '+'
+const WHATSAPP_NUMBER = '5522999999999';
 
 export default function Header() {
   const { getItemCount, toggleCart } = useCartStore();
@@ -30,14 +30,12 @@ export default function Header() {
   const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // Scroll effect
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fechar busca com Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -49,14 +47,12 @@ export default function Header() {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Focar input ao abrir busca
   useEffect(() => {
     if (searchOpen) {
       setTimeout(() => searchInputRef.current?.focus(), 50);
     }
   }, [searchOpen]);
 
-  // Fechar menu mobile ao redimensionar para desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) setMobileOpen(false);
@@ -80,13 +76,12 @@ export default function Header() {
 
   return (
     <>
-      {/* Top bar */}
-      <div className="bg-[#050505] text-[#A1A1AA] py-2.5 hidden md:block relative z-50">
+      <div className="bg-[var(--bg-elevated)] text-[var(--text-secondary)] py-2.5 hidden md:block relative z-50 border-b border-[var(--border-subtle)]">
         <div className="section-inner flex items-center justify-between text-xs tracking-wide">
           <div className="flex items-center gap-6">
             <button
               onClick={handlePhoneClick}
-              className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer"
+              className="flex items-center gap-2 hover:text-[var(--text-primary)] transition-colors cursor-pointer"
               aria-label="Abrir WhatsApp"
             >
               <Phone size={12} />
@@ -95,80 +90,63 @@ export default function Header() {
             <span>SÃO JOÃO DA BARRA – RJ • ENVIAMOS PARA TODO O BRASIL</span>
           </div>
           <div className="flex items-center gap-6 font-500">
-            <Link href="/conta/pedidos" className="hover:text-white transition-colors">
+            <Link href="/conta/pedidos" className="hover:text-[var(--text-primary)] transition-colors">
               MEUS PEDIDOS
             </Link>
-            <Link href="/login" className="hover:text-white transition-colors">
+            <Link href="/login" className="hover:text-[var(--text-primary)] transition-colors">
               ENTRAR
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Main header */}
-      <header
-        className={`sticky top-0 z-50 bg-white transition-all duration-300 ${
-          scrolled ? 'border-b border-[#E4E4E7] shadow-[0_4px_20px_rgba(0,0,0,0.03)]' : 'border-b border-[#E4E4E7]'
-        }`}
-      >
+      <header className={`fixed top-0 md:top-[38px] w-full z-50 ${scrolled ? 'scrolled' : ''}`}>
         <div className="section-inner flex items-center justify-between h-20 gap-8">
-          {/* Logo */}
           <Link href="/" className="flex-shrink-0 flex items-center" aria-label="Ir para a página inicial">
-            <RevizziLogo width={150} height={40} variant="full" color="black" />
+            <RevizziLogo width={150} height={40} variant="full" color="white" />
           </Link>
 
-          {/* Navigation - desktop */}
           <nav className="hidden lg:flex items-center gap-8 h-full">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-600 text-[#09090B] hover:text-[#E60000] transition-colors uppercase tracking-wider relative group py-2"
-              >
+              <Link key={link.href} href={link.href}>
                 {link.label}
-                <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#E60000] scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </Link>
             ))}
           </nav>
 
-          {/* Actions */}
-          <div className="flex items-center gap-4">
-            {/* Busca */}
+          <div className="flex items-center gap-4 text-[var(--text-primary)]">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="w-10 h-10 flex items-center justify-center text-[#09090B] hover:text-[#E60000] transition-colors"
+              className="w-10 h-10 flex items-center justify-center hover:text-[var(--accent)] transition-colors"
               aria-label={searchOpen ? 'Fechar busca' : 'Abrir busca'}
             >
               {searchOpen ? <X size={20} strokeWidth={1.5} /> : <Search size={20} strokeWidth={1.5} />}
             </button>
 
-            {/* Minha conta */}
             <Link
               href="/conta/pedidos"
-              className="hidden sm:flex w-10 h-10 items-center justify-center text-[#09090B] hover:text-[#E60000] transition-colors"
+              className="hidden sm:flex w-10 h-10 items-center justify-center hover:text-[var(--accent)] transition-colors"
               aria-label="Minha conta"
             >
               <User size={20} strokeWidth={1.5} />
             </Link>
 
-            {/* Carrinho */}
             <button
               onClick={toggleCart}
-              className="relative flex w-10 h-10 items-center justify-center text-[#09090B] hover:text-[#E60000] transition-colors"
-              aria-label={`Carrinho com ${itemCount} ${itemCount === 1 ? 'item' : 'itens'}`}
+              className="relative flex w-10 h-10 items-center justify-center hover:text-[var(--accent)] transition-colors"
+              aria-label="Carrinho"
             >
               <ShoppingCart size={20} strokeWidth={1.5} />
               {itemCount > 0 && (
-                <span className="absolute top-0 right-0 w-4 h-4 bg-[#E60000] text-[10px] font-700 text-white flex items-center justify-center">
+                <span className="absolute top-1 right-1 w-4 h-4 bg-[var(--text-primary)] text-[var(--bg-base)] text-[10px] font-700 flex items-center justify-center rounded-sm">
                   {itemCount > 9 ? '9+' : itemCount}
                 </span>
               )}
             </button>
 
-            {/* Menu mobile */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden w-10 h-10 flex items-center justify-center text-[#09090B]"
+              className="lg:hidden w-10 h-10 flex items-center justify-center"
               aria-label={mobileOpen ? 'Fechar menu' : 'Abrir menu'}
             >
               {mobileOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
@@ -176,70 +154,62 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Search Bar Dropdown */}
         {searchOpen && (
-          <div className="absolute top-full left-0 w-full bg-white border-b border-[#E4E4E7] shadow-lg animate-fade-in">
+          <div className="absolute top-full left-0 w-full bg-[var(--bg-surface)] border-b border-[var(--border-subtle)] shadow-lg animate-fade-in">
             <div className="section-inner py-6">
               <form onSubmit={handleSearch} className="relative max-w-3xl mx-auto">
-                <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#A1A1AA] pointer-events-none" />
+                <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none" />
                 <input
                   ref={searchInputRef}
                   type="search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Buscar produtos, vitrificadores, marcas..."
-                  className="w-full bg-[#F4F4F5] border-none text-base pl-12 pr-28 py-4 focus:ring-2 focus:ring-[#09090B] outline-none transition-all"
+                  placeholder="Buscar produtos..."
+                  className="w-full bg-[var(--bg-elevated)] border border-[var(--border-default)] text-base pl-12 pr-28 py-4 focus:border-[var(--border-active)] outline-none transition-all text-[var(--text-primary)]"
                 />
                 <button
                   type="submit"
                   disabled={!searchQuery.trim()}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#09090B] text-white text-sm font-600 px-4 py-2 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#E60000] transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-[var(--text-primary)] text-[var(--bg-base)] text-sm font-600 px-4 py-2 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--accent-hover)] transition-colors rounded-[2px]"
                 >
                   Buscar
                 </button>
               </form>
-              <p className="text-center text-xs text-[#A1A1AA] mt-3">
-                Pressione <kbd className="bg-[#F4F4F5] px-1.5 py-0.5 rounded text-[11px] font-mono">Enter</kbd> para buscar
-                ou <kbd className="bg-[#F4F4F5] px-1.5 py-0.5 rounded text-[11px] font-mono">Esc</kbd> para fechar
-              </p>
             </div>
           </div>
         )}
 
-        {/* Mobile nav */}
         {mobileOpen && (
-          <nav className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-[#E4E4E7] shadow-lg animate-slide-up">
+          <nav className="lg:hidden absolute top-full left-0 w-full bg-[var(--bg-surface)] border-b border-[var(--border-subtle)] shadow-lg animate-slide-up flex flex-col">
             <div className="flex flex-col py-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="px-6 py-4 text-sm font-600 text-[#09090B] hover:bg-[#F4F4F5] hover:text-[#E60000] transition-colors uppercase tracking-wider border-b border-[#F4F4F5]"
+                  className="px-6 py-4 text-sm font-600 text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-colors uppercase tracking-wider border-b border-[var(--border-subtle)]"
                 >
                   {link.label}
                 </Link>
               ))}
-              {/* Busca mobile */}
               <form
                 onSubmit={(e) => { setMobileOpen(false); handleSearch(e); }}
-                className="px-6 py-4 border-b border-[#F4F4F5]"
+                className="px-6 py-4 border-b border-[var(--border-subtle)]"
               >
                 <div className="relative">
-                  <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#A1A1AA] pointer-events-none" />
+                  <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none" />
                   <input
                     type="search"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Buscar produtos..."
-                    className="w-full bg-[#F4F4F5] text-sm pl-9 pr-4 py-3 outline-none focus:ring-2 focus:ring-[#09090B] transition-all"
+                    className="w-full bg-[var(--bg-elevated)] border border-[var(--border-default)] text-sm pl-9 pr-4 py-3 outline-none focus:border-[var(--border-active)] transition-all text-[var(--text-primary)]"
                   />
                 </div>
               </form>
-              {/* WhatsApp mobile */}
               <button
                 onClick={() => { setMobileOpen(false); handlePhoneClick(); }}
-                className="px-6 py-4 text-sm font-600 text-[#09090B] hover:bg-[#F4F4F5] hover:text-[#25D366] transition-colors uppercase tracking-wider border-b border-[#F4F4F5] flex items-center gap-2"
+                className="px-6 py-4 text-sm font-600 text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-colors uppercase tracking-wider border-b border-[var(--border-subtle)] flex items-center gap-2"
               >
                 <Phone size={14} />
                 (22) 99999-9999 — WhatsApp
@@ -248,7 +218,7 @@ export default function Header() {
                 <Link
                   href="/login"
                   onClick={() => setMobileOpen(false)}
-                  className="btn-primary w-full text-center"
+                  className="btn-primary w-full"
                 >
                   Entrar / Cadastrar
                 </Link>
@@ -258,7 +228,6 @@ export default function Header() {
         )}
       </header>
 
-      {/* Cart Drawer */}
       <CartDrawer />
     </>
   );

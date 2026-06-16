@@ -10,35 +10,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          purple: "#9333EA",
-          magenta: "#C026D3",
-          orange: "#EA580C",
-          gold: "#D97706",
-        },
         surface: {
-          DEFAULT: "#F7F7F7",
-          2: "#F0F0F0",
+          DEFAULT: "#131313",
+          2: "#1A1A1A",
         },
         border: {
-          DEFAULT: "#E4E4E4",
-          dark: "#2A2A2A",
+          DEFAULT: "rgba(255, 255, 255, 0.10)",
+          dark: "rgba(255, 255, 255, 0.22)",
         },
         text: {
-          primary: "#0A0A0A",
-          secondary: "#5C5C5C",
-          muted: "#9C9C9C",
+          primary: "#F0F0F0",
+          secondary: "#9A9A9A",
+          muted: "#555555",
         },
-        success: "#16A34A",
-        danger: "#DC2626",
-      },
-      backgroundImage: {
-        "brand-gradient":
-          "linear-gradient(135deg, #9333EA 0%, #C026D3 30%, #EA580C 70%, #D97706 100%)",
-        "brand-gradient-subtle":
-          "linear-gradient(135deg, #9333EA22 0%, #D9770622 100%)",
-        "brand-gradient-r":
-          "linear-gradient(to right, #9333EA, #D97706)",
+        success: "#4A8A5A",
+        danger: "#8A3A3A",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
@@ -50,7 +36,6 @@ export default {
       boxShadow: {
         card: "0 4px 20px rgba(0,0,0,0.08)",
         "card-hover": "0 8px 32px rgba(0,0,0,0.10)",
-        brand: "0 0 0 2px #9333EA40",
       },
       animation: {
         shimmer: "shimmer 1.5s infinite",
