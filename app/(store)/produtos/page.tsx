@@ -126,7 +126,7 @@ export default async function ProdutosPage({
             categories={categories.map((c: any) => ({
               name: c.name,
               slug: c.slug,
-              count: c._count.products,
+              count: c._count?.products || 0,
             }))}
             currentParams={params as Record<string, string | undefined>}
           />

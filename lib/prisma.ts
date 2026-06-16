@@ -150,7 +150,18 @@ export const prisma = {
     count: async () => globalThis._mockDbV2.products.length,
   },
   category: {
-    findMany: async () => globalThis._mockDbV2.categories,
+    findMany: async (options?: any) => {
+      const categories = [...globalThis._mockDbV2.categories];
+      if (options?.include?._count) {
+        return categories.map(c => ({
+          ...c,
+          _count: {
+            products: globalThis._mockDbV2.products.filter((p: any) => p.categoryId === c.id).length
+          }
+        }));
+      }
+      return categories;
+    },
   },
   user: {
     findUnique: async () => null,
